@@ -3,6 +3,7 @@ const express = require('express')
 //导入读取文件的path
 const path = require('path')
 var bodyParser = require('body-parser')
+var session = require('express-session')
 
 //创建app
 const app = express()
