@@ -61,5 +61,27 @@
        // GET & url不变
        $("#vcodeimgId").attr('src',`/account/vcode?aaa=${Math.random()}`)
    })
+
+   function register(){
+       location.href = '/account/register'
+   }
+   function login(){
+       const username = $('#usernameId').val()
+       const password = $.md5($('#passwordId').val()+"@&%^$%$_12316")
+       const vcode = $('#vcodeId').val()
+       /**
+        * 参数1:url
+        * 参数2:参数
+        * 参数3:回调函数
+       */
+       $.post('/account/login',{username,password,vcode},function(result){
+        if(result.status != 0){
+            alert(result.message)
+            $('#vcodeimgId').attr("src",`account/vcode?aaa=${Math.random()}`);
+        }else{
+            location.href = "/studenmanager/list";
+        }
+      })
+   }
 </script>
 </html>

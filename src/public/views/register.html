@@ -47,6 +47,8 @@
         const username = $("#usernameId").val()
         //加盐 + 后面 不加盐容易破解
         const password = $.md5($("#passwordId").val()+"@&%^$%$_12316")
+
+        const vcode = $('vcodeId').val()
         /**
          * 参数1:url 必须
          * 参数2:提交的请求体的数据 可选
