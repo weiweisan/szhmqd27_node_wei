@@ -19,7 +19,19 @@ app.use(session({ secret: 'keyboard cat',resave:false,saveUninitialized:false, c
 //设置静态资源根目录
 app.use(express.static(path.join(__dirname,'public')))
 
-
+//拦截到所有的请求 *是代表所有的页面
+app.all('/*',(req,res,next) => {
+    if(req.url.includes('account')){
+        //执行下一个中间件
+        next()
+    } else { //除开account一级路由的请求之外,其它都得判断是否登录
+        if(req.session.loginedName){
+            next()
+        } else {
+            res.send(`<script>alert('您还没登录,请先登录!');location.href='/account/login'</script>`)
+        }
+    }
+})
 //导入路由对象 路由中间件写在最后面
 const accountRouter = require(path.join(__dirname,"routers/accountRouter.js"));
 app.use('/account',accountRouter)
